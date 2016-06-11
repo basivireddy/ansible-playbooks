@@ -1,0 +1,15 @@
+---
+
+- name: download drupal
+  get_url: url=http://ftp.drupal.org/files/projects/drupal-7.25.tar.gz dest=/var/www/html/drupal-7.25.tar.gz
+
+- name: unarchive
+  unarchive: src=/var/www/html/drupal-7.25.tar.gz  dest=/var/www/html/
+
+#- name: Creates directory
+#  file: path=/var/www/html/drupal state=directory owner=www-data group=www-data mode=0775 recurse=yes
+
+#- name: move drupal to /var/www/html/drupal
+#  copy: src=/var/www/html/drupal-7.25/  dest=/var/www/html/drupal/
+- name: simple script to give permissions
+  shell : /root/ansible-playbooks/drupal_setup/drupal_permission.sh  
