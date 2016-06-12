@@ -1,15 +1,18 @@
 ---
 
 - name: download drupal
-  get_url: url=http://ftp.drupal.org/files/projects/drupal-7.25.tar.gz dest=/var/www/html/drupal-7.25.tar.gz
+  get_url: url=http://ftp.drupal.org/files/projects/drupal-7.25.tar.gz dest=/tmp/drupal-7.25.tar.gz
 
 - name: unarchive
-  unarchive: src=/var/www/html/drupal-7.25.tar.gz  dest=/var/www/html/
+  unarchive: src=/tmp/drupal-7.25.tar.gz  dest=/tmp/
 
-#- name: Creates directory
-#  file: path=/var/www/html/drupal state=directory owner=www-data group=www-data mode=0775 recurse=yes
+- name: download simple script
+  get_url: url=https://bitbucket.org/basivireddy/ansible-playbooks/raw/ead6e7d876e18f395a2fa52c2b701b56680cb123/drupal_setup/drupal_permission.sh dest=/tmp/drupal_permission.sh 
 
-#- name: move drupal to /var/www/html/drupal
-#  copy: src=/var/www/html/drupal-7.25/  dest=/var/www/html/drupal/
+- name: permissions
+  file: path=/tmp/drupal_permission.sh  mode=777 
+
 - name: simple script to give permissions
-  shell : /root/ansible-playbooks/drupal_setup/drupal_permission.sh  
+  shell : /tmp/drupal_permission.sh 
+  notify:
+     - restart apache2 

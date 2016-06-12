@@ -8,4 +8,3 @@
 
 - name: Install MySQL module for PHP
   apt: name=php5-mysql state=latest
-

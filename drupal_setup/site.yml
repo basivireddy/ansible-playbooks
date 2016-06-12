@@ -11,6 +11,7 @@
 
   roles:
     - update
+    - apache2
     - php
     - mysql
     - drupal
